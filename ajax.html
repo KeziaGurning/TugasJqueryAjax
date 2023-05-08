@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Contoh Aplikasi Web AJAX dengan jQuery</title>
+</head>
+<body>
+	<h1>Data Pengguna</h1>
+	<table id="data-table" border=1>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nama</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$.ajax({
+				url: 'https://dummyjson.com/users',
+				method: 'GET',
+				success: function(data) {
+					var users = data.users;
+					var table = $('#data-table');
+					for (var i = 0; i < users.length; i++) {
+						var row = $('<tr>');
+						row.append($('<td>').text(users[i].id));
+						row.append($('<td>').text(users[i].firstName));
+						row.append($('<td>').text(users[i].email));
+						table.append(row);
+					}
+				},
+				error: function(error) {
+					console.log('Terjadi kesalahan:', error);
+				}
+			});
+		});
+	</script>
+</html>
